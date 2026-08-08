@@ -97,10 +97,9 @@ export default class View {
           : gaols.map(p => p.job.getName(this.sayType)).join(' '))
       }
       
-      this.clearTiles()
-      for (const p of gaols) {
-        this.app.appendChild(await this.getTile(p.job))
-      }
+      Promise.all(gaols.map(p => this.getTile(p.job)))
+        .then(tiles => this.app.replaceChildren(...tiles))
+        .catch(console.error)
       console.log('gaols updated', gaols)
 
     }
