@@ -58,12 +58,6 @@ export default class View {
       this.me = me
       console.log('player updated', me)
 
-      try {
-        if (me.job) gtag('event', 'player', {
-          event_category: 'Update',
-          event_label: me.job.getName(JOB_NT)
-        })
-      } catch (e) { }
     }
 
     if (party) {
@@ -73,12 +67,6 @@ export default class View {
     if (priority) {
       console.log('priority updated', priority)
 
-      try {
-        gtag('event', 'priority', {
-          event_category: 'Update',
-          event_label: priority.jobs.map(j => j.getName(JOB_NT)).join('')
-        })
-      } catch (e) { }
     }
 
     if (gaols) {
@@ -94,12 +82,6 @@ export default class View {
       gaols.forEach(async p => this.app.appendChild(await this.getTile(p.job)))
       console.log('gaols updated', gaols)
 
-      try {
-        gtag('event', 'gaols', {
-          event_category: 'Update',
-          event_label: `${gaols.map(p => p.job.getName(JOB_NT)).join('')} (#${order})`,
-        })
-      } catch (e) { }
     }
   }
 }
