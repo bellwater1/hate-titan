@@ -91,10 +91,12 @@ export default class View {
         const order = this.me
           ? 1 + gaols.findIndex(p => p.id === this.me.id)
           : 0
-
-        this.say(order
-          ? `${order}번째`
-          : gaols.map(p => p.job.getName(this.sayType)).join(' '))
+        if(order > 0){
+          this.say(`${order}번째`)
+        }
+        // this.say(order
+        //   ? `${order}번째`
+        //   : gaols.map(p => p.job.getName(this.sayType)).join(' '))
       }
       
       Promise.all(gaols.map(p => this.getTile(p.job)))
