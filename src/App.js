@@ -64,8 +64,10 @@ export class App {
 
   onLogLine ({ line, rawLine }) {
     const m = PATTERN.exec(rawLine.replace(/\|/g, ':'))
-    console.log(m)
-    if (m) return this.onGaol(this.party.find(p => p.id === m[1]))
+    
+    if (m){ 
+      console.log(m)
+      return this.onGaol(this.party.find(p => p.id === m[1])) }
     if (line[0] === '00' && line[2] === '0038') return this.onEcho(line[4])
   }
 
