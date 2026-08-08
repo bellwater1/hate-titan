@@ -4,6 +4,11 @@ import Priority from './Priority.js'
 
 const TIMEOUT = 1000
 const PATTERN = /.+?:2B6[BC]:.+?:([0-9A-F]+?):/
+/** 재생버전 관리용 전역변수 */
+const PLAYBACK_MODES = {
+  '재생버전1': 'party',
+  '재생버전2': 'personal'
+}
 
 export class App {
   me = null
@@ -66,6 +71,13 @@ export class App {
   onEcho (text) {
     const m = text.split(' ')
     if (m[0] !== '돌감옥') return
+
+    /** 혼잣말 돌감옥 재생버전1, 재생버전2 입력시 재생방식 변경 */
+    if (PLAYBACK_MODES[m[1]]) {
+      this.view.setPlaybackMode(PLAYBACK_MODES[m[1]])
+      return
+    }
+
     if (m.length > 1) this.priority.setByNames(m[1])
     this.view.update({ priority: this.priority })
   }
